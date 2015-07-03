@@ -8,7 +8,44 @@
     <link rel="stylesheet" href="node_modules/shower-ribbon/styles/screen.css">
     <script src="examples/vendors/jquery.min.js"></script>
     <script src="examples/vendors/TweenMax.min.js"></script>
-    <script src="examples/vendors/attrchange.js"></script>
+    <style>
+        .b-note
+        {
+            color: grey;
+            font-size: 70%;
+        }
+
+        .slide ul li.no-li:before
+        {
+            content: '';
+        }
+
+        .slide ul li.plus:before
+        {
+            content: '+ ';
+            position: relative;
+            left: -10px;
+            color: green;
+        }
+
+        .slide ul li.minus:before
+        {
+            content: '- ';
+            position: relative;
+            left: -10px;
+            color: red;
+        }
+
+        .b-alert
+        {
+            color: red;
+        }
+
+        table.b-table_border_none td
+        {
+            background: none;
+        }
+    </style>
 </head>
 <body class="list">
 <header class="caption">
@@ -19,7 +56,7 @@
 <section class="slide cover" id="Cover">
     <div>
         <h2>Путь аниматора</h2>
-        <p><a href="http://yandex.ru">Завьялов Александр</a></p>
+        <p><a href="//twitter.com/ihannky" target="_blank">Завьялов Александр</a></p>
         <img src="pictures/1.jpg" alt="" width="1144">
         <style>
             #Cover h2
@@ -53,7 +90,7 @@
     <div>
         <h2>Продолжение начатого разговора</h2>
         <ul>
-            <li>Доклад <a href="//habrahabr.ru/company/yandex/blog/239169/" target="_blank">&laquo;Аппаратное ускорение в жизни верстальщика&raquo;</a></li>
+            <li>Доклад &laquo;<a href="//habrahabr.ru/company/yandex/blog/239169/" target="_blank">Аппаратное ускорение в жизни верстальщика</a>&raquo;</li>
             <li class="next">Надеюсь, что смог объяснить:</li>
             <ul>
                 <li class="next">процесс преобразования HTML/CSS в картинку на экране;</li>
@@ -82,8 +119,14 @@
 </section>
 
 <section class="slide cover" id="Go">
+    <style>
+        #Go img
+        {
+            margin: 0 0 0 140px;
+        }
+    </style>
     <div>
-        <img src="pictures/letsgo.jpg" alt="" width="740" style="margin:0 0 0 140px;">
+        <img src="pictures/letsgo.jpg" alt="" width="730">
     </div>
 </section>
 
@@ -116,20 +159,13 @@
         <ul>
             <li class="no-li"><img src="pictures/actions2.jpg" alt="" width="800"></li>
             <li class="next">CSS opacity (transition): перерасчет стилей, композитинг</li>
-            <li class="no-li">(<a href="examples/composite-thread/index.html">пример</a>)</li>
+            <li class="no-li next">(<a href="examples/composite-thread/index.html" target="_blank">пример</a>)</li>
         </ul>
-        <a href="//csstriggers.com" class="next">csstriggers.com</a>
+        <a href="//csstriggers.com" class="next" target="_blank">csstriggers.com</a>
     </div>
 </section>
 
 <section class="slide">
-    <style>
-        .b-note
-        {
-            color: grey;
-            font-size: 70%;
-        }
-    </style>
     <div>
         <h2>Подходы к созданию web анимаций</h2>
         <ol>
@@ -140,28 +176,6 @@
 
 <section class="slide">
     <div>
-        <style>
-            .slide ul li.no-li:before
-            {
-                content: '';
-            }
-
-            .slide ul li.plus:before
-            {
-                content: '+ ';
-                position: relative;
-                left: -10px;
-                color: green;
-            }
-
-            .slide ul li.minus:before
-            {
-                content: '- ';
-                position: relative;
-                left: -10px;
-                color: red;
-            }
-        </style>
         <h2>CSS анимации</h2>
         <ul>
             <li>Декларативны</li>
@@ -170,9 +184,9 @@
     </div>
 </section>
 
-<section class="slide" id="Css">
+<section class="slide" id="CssAnim">
     <style>
-        .b-red
+        #CssAnim .b-red
         {
             width: 100px;
             height: 100px;
@@ -183,12 +197,12 @@
             will-change: transform;
         }
 
-        .b-red:hover
+        #CssAnim .b-red:hover
         {
             transform: rotate(360deg);
         }
 
-        .b-yellow
+        #CssAnim .b-yellow
         {
             width: 100px;
             height: 100px;
@@ -198,7 +212,7 @@
             margin: 0 0 0 200px;
         }
 
-        .b-yellow:hover
+        #CssAnim .b-yellow:hover
         {
             animation: 1s rotate;
         }
@@ -301,23 +315,9 @@
     </div>
 </section>
 
-<section class="slide">
-    <script>
-        $(function () {
-            var $badCssSchema = $('#bad_css_schema');
-
-            $badCssSchema.attrchange({
-                trackValues: true,
-                callback: function (e) {
-                    if (e.attributeName == 'class' && e.newValue == 'next active') {
-
-                    }
-                }
-            });
-        });
-    </script>
+<section class="slide" id="CssAnim1">
     <style>
-        .b-bad
+        #CssAnim1 .b-bad
         {
             width: 100px;
             height: 50px;
@@ -325,19 +325,15 @@
             transition: width 1s;
         }
 
-        .b-bad:hover
+        #CssAnim1 .b-bad:hover
         {
             width: 300px;
         }
 
-        .b-alert
+        #CssAnim1 img
         {
-            color: red;
-        }
-
-        table.b-table_border_none td
-        {
-            background: none;
+            position: absolute;
+            margin: -30px 0 0 70px;
         }
     </style>
     <div>
@@ -358,7 +354,7 @@
                     <div class="b-bad"></div>
                 </td>
                 <td>
-                    <a href="pictures/animate-height.png" target="_blank" style="position: absolute;margin: -30px 0 0 70px;">
+                    <a href="pictures/animate-height.png" target="_blank">
                         <img src="pictures/animate-height.png" alt="" width="300">
                     </a>
                 </td>
@@ -367,14 +363,14 @@
     </div>
 </section>
 
-<section class="slide">
+<section class="slide" id="CssAnim2">
     <style>
-        .b-good
+        #CssAnim2 .b-good
         {
             color: green;
         }
 
-        .b-awesome
+        #CssAnim2 .b-awesome
         {
             width: 100px;
             height: 50px;
@@ -383,9 +379,15 @@
             will-change: transform;
         }
 
-        .b-awesome:hover
+        #CssAnim2 .b-awesome:hover
         {
             transform: translateX(100px) scaleX(3);
+        }
+
+        #CssAnim2 img
+        {
+            position: absolute;
+            margin: -30px 0 0 70px;
         }
     </style>
     <div>
@@ -405,7 +407,7 @@
                     <div class="b-awesome"></div>
                 </td>
                 <td>
-                    <a href="pictures/animate-transform.png" target="_blank" style="position: absolute;margin: -30px 0 0 70px;">
+                    <a href="pictures/animate-transform.png" target="_blank" style="">
                         <img src="pictures/animate-transform.png" alt="" width="300">
                     </a>
                 </td>
@@ -431,13 +433,6 @@
 </section>
 
 <section class="slide">
-    <style>
-        .b-note
-        {
-            color: grey;
-            font-size: 70%;
-        }
-    </style>
     <div>
         <h2>Подходы к созданию web анимаций</h2>
         <ol>
@@ -481,6 +476,7 @@
             height: 180px;
             padding: 8px;
             margin-bottom: 10px;
+            margin-top: -30px;
         }
 
         #logo
@@ -567,7 +563,7 @@
         <ul>
             <li>синхронизация</li>
             <li>экономия ресурсов</li>
-            <li>(пример)</li>
+            <li class="next">(пример)</li>
         </ul>
     </div>
 </section>
@@ -589,7 +585,7 @@
         <ul>
             <li>Применимы только к SVG</li>
             <li>Плохая перспектива</li>
-            <p><a href="//groups.google.com/a/chromium.org/forum/#!topic/blink-dev/5o0yiO440LM">Intent to deprecate: SMIL</a></p>
+            <p><a href="//groups.google.com/a/chromium.org/forum/#!topic/blink-dev/5o0yiO440LM" target="_blank">Intent to deprecate: SMIL</a></p>
         </ul>
     </div>
 </section>
@@ -611,6 +607,11 @@
             {
                 color: red;
             }
+
+            #compare table th
+            {
+                text-align: center;
+            }
         </style>
         <h2>JS vs CSS</h2>
         <table>
@@ -629,21 +630,41 @@
             <tr>
                 <th scope="row">JS</th>
                 <td align="center" class="minus">-</td>
-                <td align="center" class="plus">++</td>
+                <td align="center" class="plus">+</td>
                 <td align="center" class="plus">+*</td>
             </tr>
         </table>
     </div>
 </section>
 
-<section class="slide">
+<section class="slide cover" id="Holywar">
+    <style>
+        #Holywar img
+        {
+            height: 100%;
+        }
+
+        #Holywar h2
+        {
+            color: #fff;
+            text-shadow: 0 0 18px red;
+        }
+
+        #Holywar a
+        {
+            color: #fff;
+            background-color: red;
+            padding: 0 6px;
+        }
+    </style>
     <div>
         <h2>JS vs CSS</h2>
+        <img src="pictures/holy-war.jpg" alt=""/>
         <ul>
-            <li><a href="//davidwalsh.name/css-js-animation">CSS vs. JS Animation: Which is Faster?</a></li>
-            <li><a href="//greensock.com/transitions/">CSS Animations vs GSAP: Cage Match</a></li>
-            <li><a href="//greensock.com/css-performance">CSS animations performance: the untold story</a></li>
-            <li><a href="//css-tricks.com/myth-busting-css-animations-vs-javascript/">Myth Busting: CSS Animations vs. JavaScript</a></li>
+            <li><a href="//davidwalsh.name/css-js-animation" target="_blank">CSS vs. JS Animation: Which is Faster?</a></li>
+            <li><a href="//greensock.com/transitions/" target="_blank">CSS Animations vs GSAP: Cage Match</a></li>
+            <li><a href="//greensock.com/css-performance" target="_blank">CSS animations performance: the untold story</a></li>
+            <li><a href="//css-tricks.com/myth-busting-css-animations-vs-javascript/" target="_blank">Myth Busting: CSS Animations vs. JavaScript</a></li>
         </ul>
     </div>
 </section>
@@ -652,10 +673,10 @@
     <div>
         <h2>Производительность</h2>
         <ul>
-            <li><a href="//codepen.io/paulirish/full/9712e8fb6a451e0ee7393d01e7f59f53/">Pure CSS / GSAP</a></li>
-            <li><a href="//nolanlawson.github.io/brooklyn-js-html5-mobile-apps/fps_demo.html">CSS FPS demo</a></li>
+            <li><a href="//codepen.io/paulirish/full/9712e8fb6a451e0ee7393d01e7f59f53/" target="_blank">Pure CSS / GSAP</a></li>
+            <li><a href="//nolanlawson.github.io/brooklyn-js-html5-mobile-apps/fps_demo.html" target="_blank">CSS FPS demo</a></li>
             <li class="no-li"></li>
-            <li>Native FPS для CSS анимаций</li>
+            <li>Native FPS meter для CSS анимаций</li>
             <li>Chrome overhead</li>
         </ul>
     </div>
@@ -673,7 +694,18 @@
     </div>
 </section>
 
-<section class="slide">
+<section class="slide" id="Profile">
+    <style>
+        #Profile div
+        {
+            background-color: #000;
+        }
+
+        #Profile h2
+        {
+            color: #fff;
+        }
+    </style>
     <div>
         <h2>Инструменты для профилирования. Скоро</h2>
         <video src="video/devtools-animation.mov" controls="controls" width="680" style="margin: 0 auto;display: block;"></video>
@@ -697,15 +729,28 @@
     </div>
 </section>
 
-<section class="slide">
+<section class="slide cover" id="WebAnim">
+    <style>
+        #WebAnim h2
+        {
+            color: #fff;
+        }
+
+        #WebAnim li,
+        #WebAnim a
+        {
+            color: #beddfc;
+            text-shadow: 0 0 8px #001f3e;
+        }
+    </style>
     <div>
         <h2>Web Animations</h2>
+        <img src="pictures/happy.jpg" width="1144" alt="">
         <ul>
             <li>собственный поток (like CSS);</li>
             <li>полный контроль (like JS);</li>
-            <li><a href="//w3c.github.io/web-animations/">Спецификация</a></li>
+            <li><a href="//w3c.github.io/web-animations/" target="_blank">Спецификация</a></li>
         </ul>
-        <img src="pictures/fuck-yeah.jpg" alt="" style="width:400px;margin:-260px 0 0 480px;">
     </div>
 </section>
 
@@ -764,9 +809,8 @@
         <ul>
             <li>Активная работа над стандартом</li>
             <li>Поддержка: Chrome (animate), FF (включение через флаги)</li>
-            <li>Полифил: <a href="https://github.com/web-animations/web-animations-js">https://github.com/web-animations/web-animations-js</a>
-            <li>(пример)</li>
-            </li>
+            <li>Полифил: <a href="https://github.com/web-animations/web-animations-js" target="_blank">https://github.com/web-animations/web-animations-js</a>
+            <li class="next">(пример)</li>
         </ul>
     </div>
 </section>
@@ -784,14 +828,14 @@
             <li>GSAP - абстракция</li>
             <li>Поддержка старых браузеров, независимый transform, плагины и др.</li>
         </ul>
-        <p><a href="//greensock.com/forums/topic/11247-web-animations-api-and-gsap/">Web Animations API and GSAP</a></p>
+        <p><a href="//greensock.com/forums/topic/11247-web-animations-api-and-gsap/" target="_blank">Web Animations API and GSAP</a></p>
     </div>
 </section>
 
 <section class="slide">
     <div>
-        <h2>Итого</h2>
-        <p>Возможный порядок использования техник:</p>
+        <h2>Чем в итоге анимировать?</h2>
+        <p>Авторский порядок использования техник:</p>
         <ol>
             <li>CSS transitions</li>
             <li>CSS keyframes</li>
@@ -801,10 +845,55 @@
     </div>
 </section>
 
-<section class="slide cover" id="end">
-    <div style="text-align:center">
-        <h2 style="color:#fff;font-size:50px;">Спасибо</h2>
-        <p><a href="http://yandex.ru">Завьялов Александр</a></p>
+<section class="slide cover" id="End">
+    <style>
+        #End h2
+        {
+            font-size: 70px;
+            margin: 170px 0 0;
+            color: #fff;
+        }
+
+        #End .b-name
+        {
+            color: #fff;
+        }
+
+        #End .b-twitter
+        {
+            color: #c0dffc;
+            line-height: 1.1;
+        }
+
+        #End .b-mail
+        {
+            float: right;
+            line-height: 1.1;
+            color: #c0dffc;
+        }
+
+        #End .b-left
+        {
+            text-align: left;
+            line-height: 1;
+            margin: 130px 0 0;
+        }
+
+        #End div
+        {
+            text-align: center;
+        }
+    </style>
+    <div>
+        <h2>Спасибо</h2>
+        <img src="pictures/mountains.jpg" alt="" width="1144">
+        <p>
+            <span class="b-name">Завьялов Александр</span>
+        </p>
+        <p class="b-left">
+            <a class="b-twitter" href="https://twitter.com/ihannky" target="_blank">@ihannky</a>
+            <a class="b-mail" href="mailto:hanky@yandex-team.ru">hanky@yandex-team.ru</a>
+        </p>
     </div>
 </section>
 
