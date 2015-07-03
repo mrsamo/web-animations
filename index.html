@@ -1,0 +1,815 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <title>Путь аниматора</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=792, user-scalable=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <link rel="stylesheet" href="node_modules/shower-ribbon/styles/screen.css">
+    <script src="examples/vendors/jquery.min.js"></script>
+    <script src="examples/vendors/TweenMax.min.js"></script>
+    <script src="examples/vendors/attrchange.js"></script>
+</head>
+<body class="list">
+<header class="caption">
+    <h1>Путь аниматора</h1>
+    <p>Завьялов Александр</p>
+</header>
+
+<section class="slide cover" id="Cover">
+    <div>
+        <h2>Путь аниматора</h2>
+        <p><a href="http://yandex.ru">Завьялов Александр</a></p>
+        <img src="pictures/1.jpg" alt="" width="1144">
+        <style>
+            #Cover h2
+            {
+                margin: 240px 0px 0px;
+                color: #FFF;
+                text-align: center;
+                font-size: 130px;
+                text-shadow: 0 0 74px #000;
+            }
+
+            #Cover p
+            {
+                margin: 10px 0 0;
+                text-align: center;
+                color: #FFF;
+                font-style: italic;
+                font-size: 20px;
+                text-shadow: 0 0 10px #000;
+            }
+
+            #Cover p a
+            {
+                color: #FFF;
+            }
+        </style>
+    </div>
+</section>
+
+<section class="slide">
+    <div>
+        <h2>Продолжение начатого разговора</h2>
+        <ul>
+            <li>Доклад <a href="//habrahabr.ru/company/yandex/blog/239169/" target="_blank">&laquo;Аппаратное ускорение в жизни верстальщика&raquo;</a></li>
+            <li class="next">Надеюсь, что смог объяснить:</li>
+            <ul>
+                <li class="next">процесс преобразования HTML/CSS в картинку на экране;</li>
+                <li class="next">отличия между paint и composite (а цвет то один);</li>
+                <li class="next">что такое аппаратно ускоренный композитинг;</li>
+                <li class="next">как подружить верстку с возможностями браузеров, чтобы исключить лишнюю работу по расчету стилей, компоновке и отрисовке.
+                </li>
+            </ul>
+        </ul>
+    </div>
+</section>
+
+<section class="slide">
+    <div>
+        <h2>Продолжение начатого разговора</h2>
+        <ul>
+            <li>Сегодня вы увидите попытку:</li>
+            <ul>
+                <li class="next">рассказать о вариантах создания анимации в web;</li>
+                <li class="next">сопоставить плюсы и минусы;</li>
+                <li class="next">разобраться с производительностью анимаций;</li>
+                <li class="next">посоветовать инструменты для разного рода задач.</li>
+            </ul>
+        </ul>
+    </div>
+</section>
+
+<section class="slide cover" id="Go">
+    <div>
+        <img src="pictures/letsgo.jpg" alt="" width="740" style="margin:0 0 0 140px;">
+    </div>
+</section>
+
+<section class="slide">
+    <div>
+        <h2>База</h2>
+        <ul>
+            <li>FPS</li>
+            <li class="next">Frame budget в 16.6мс (реально 10мс)</li>
+            <li class="next">статьи расходов</li>
+        </ul>
+        <img src="pictures/actions.jpg" alt="" width="800" class="next">
+    </div>
+</section>
+
+<section class="slide">
+    <div>
+        <h2>База</h2>
+        <ul>
+            <li>CSS height: перерасчет стилей, компоновка, отрисовка, композитинг</li>
+            <li class="no-li"><img src="pictures/actions1.jpg" alt="" width="800"></li>
+            <li class="next">CSS background-color: перерасчет стилей, отрисовка, композитинг</li>
+        </ul>
+    </div>
+</section>
+
+<section class="slide">
+    <div>
+        <h2>База</h2>
+        <ul>
+            <li class="no-li"><img src="pictures/actions2.jpg" alt="" width="800"></li>
+            <li class="next">CSS opacity (transition): перерасчет стилей, композитинг</li>
+        </ul>
+        <a href="//csstriggers.com" class="next">csstriggers.com</a>
+    </div>
+</section>
+
+<section class="slide">
+    <style>
+        .b-note
+        {
+            color: grey;
+            font-size: 70%;
+        }
+    </style>
+    <div>
+        <h2>Подходы к созданию web анимаций</h2>
+        <ol>
+            <li class="next">CSS <span class="b-note">(keyframes, transitions)</span></li>
+        </ol>
+    </div>
+</section>
+
+<section class="slide">
+    <div>
+        <style>
+            .slide ul li.no-li:before
+            {
+                content: '';
+            }
+
+            .slide ul li.plus:before
+            {
+                content: '+ ';
+                position: relative;
+                left: -10px;
+                color: green;
+            }
+
+            .slide ul li.minus:before
+            {
+                content: '- ';
+                position: relative;
+                left: -10px;
+                color: red;
+            }
+        </style>
+        <h2>CSS анимации</h2>
+        <ul>
+            <li>Декларативны</li>
+            <li class="plus next">Просты</li>
+        </ul>
+    </div>
+</section>
+
+<section class="slide" id="Css">
+    <style>
+        .b-red
+        {
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            transition: transform 1s;
+            display: inline-block;
+            vertical-align: top;
+            will-change: transform;
+        }
+
+        .b-red:hover
+        {
+            transform: rotate(360deg);
+        }
+
+        .b-yellow
+        {
+            width: 100px;
+            height: 100px;
+            background-color: yellow;
+            display: inline-block;
+            vertical-align: top;
+            margin: 0 0 0 200px;
+        }
+
+        .b-yellow:hover
+        {
+            animation: 1s rotate;
+        }
+
+        @keyframes rotate
+        {
+            to
+            {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+    <div>
+        <h2>CSS анимации: декларативны и просты</h2>
+        <table class="b-table_border_none">
+            <tr>
+                <td width="55%">
+                    <pre style="font-size:80%;">
+            <code>.b-red {</code>
+            <code> transition: transform 1s;</code>
+            <code>}</code>
+            <code>.b-red:hover {</code>
+            <code> transform: rotate(360deg);</code>
+            <code>}</code>
+        </pre>
+                    <div class="b-red"></div>
+                </td>
+                <td>
+                    <pre style="font-size:80%;">
+            <code>.b-yellow:hover {</code>
+            <code> animation: 1s rotate;</code>
+            <code>}</code>
+            <code>@keyframes rotate {</code>
+            <code> to { transform: rotate(360deg); }</code>
+            <code>}</code>
+        </pre>
+                    <div class="b-yellow"></div>
+                </td>
+            </tr>
+        </table>
+
+    </div>
+</section>
+
+<section class="slide">
+    <div>
+        <h2>CSS анимации</h2>
+        <ul>
+            <li>Декларативны</li>
+            <li class="plus">Просты</li>
+            <li class="plus next">Свободны* от основного потока: js, paint, layout, etc</li>
+        </ul>
+    </div>
+</section>
+
+<section class="slide">
+    <div>
+        <h2>CSS анимации: compositor thread</h2>
+        Два потока исполнения рендера:
+        <ul>
+            <li>Основной поток (main thread)</li>
+            <ul>
+                <li>js, recalculation styles, layout, paint (rasterization), отправка bitmap в compositor thread</li>
+            </ul>
+            <li>Поток композититора (compositor thread)</li>
+            <ul>
+                <li>вывод битматов на экран через GPU, опрос main thread о необходимости обновления битматов, компоновка
+                    частей страницы при скроллинге
+                </li>
+            </ul>
+        </ul>
+    </div>
+</section>
+
+<section class="slide">
+    <div>
+        <h2>CSS анимации: compositor thread</h2>
+        <ul>
+            <li>Основной поток может быть занят тяжелым JS, растеризацией большого слоя и быть недоступным
+                пользователю.
+            </li>
+            <li>Поток композитора старается поддерживать заданную дисплеем частоту кадров.</li>
+            <li>Видео скролла тяжелого сайта, композитор не ждет, заливает все белым )</li>
+        </ul>
+    </div>
+</section>
+
+<section class="slide">
+    <div>
+        <h2>CSS анимации: compositor thread</h2>
+        <ul>
+            <li>Compositor thread использует GPU для вывода изображения на экран.</li>
+            <li>GPU крайне эффективен для:</li>
+            <ul>
+                <li>частой отрисовки однотипных битмапов</li>
+                <li>отрисовке однотипных битмапов в разных позициях, углах, масштабах</li>
+            </ul>
+            <li>GPU не так эффективен при загрузке новых битмапов в память</li>
+        </ul>
+    </div>
+</section>
+
+<section class="slide">
+    <script>
+        $(function () {
+            var $badCssSchema = $('#bad_css_schema');
+
+            $badCssSchema.attrchange({
+                trackValues: true,
+                callback: function (e) {
+                    if (e.attributeName == 'class' && e.newValue == 'next active') {
+
+                    }
+                }
+            });
+        });
+    </script>
+    <style>
+        .b-bad
+        {
+            width: 100px;
+            height: 50px;
+            background-color: red;
+            transition: width 1s;
+        }
+
+        .b-bad:hover
+        {
+            width: 300px;
+        }
+
+        .b-alert
+        {
+            color: red;
+        }
+
+        table.b-table_border_none td
+        {
+            background: none;
+        }
+    </style>
+    <div>
+        <h2>CSS анимации: compositor thread</h2>
+        <table class="b-table_border_none">
+            <tr>
+                <td width="50%">
+                    <b class="b-alert">Плохо:</b> css анимация width
+        <pre style="font-size:70%;">
+            <code>.b-bad {</code>
+            <code> width: 100px;</code>
+            <code> transition: width 1s;</code>
+            <code>}</code>
+            <code>.b-bad:hover {</code>
+            <code> width: 300px;</code>
+            <code>}</code>
+        </pre>
+                    <div class="b-bad"></div>
+                </td>
+                <td>
+                    <a href="pictures/animate-height.png" target="_blank" style="position: absolute;margin: -30px 0 0 70px;">
+                        <img src="pictures/animate-height.png" alt="" width="300">
+                    </a>
+                </td>
+            </tr>
+        </table>
+    </div>
+</section>
+
+<section class="slide">
+    <style>
+        .b-good
+        {
+            color: green;
+        }
+
+        .b-awesome
+        {
+            width: 100px;
+            height: 50px;
+            background-color: green;
+            transition: transform 1s;
+            will-change: transform;
+        }
+
+        .b-awesome:hover
+        {
+            transform: translateX(100px) scaleX(3);
+        }
+    </style>
+    <div>
+        <h2>CSS анимации: compositor thread</h2>
+        <table class="b-table_border_none">
+            <tr>
+                <td width="50%">
+                    <b class="b-good">Отлично:</b> css анимация transform
+        <pre style="font-size:70%;">
+            <code>.b-awesome {</code>
+            <code> transition: transform 1s;</code>
+            <code>}</code>
+            <code>.b-awesome:hover {</code>
+            <code> transform: translateX(100px) scaleX(3);</code>
+            <code>}</code>
+        </pre>
+                    <div class="b-awesome"></div>
+                    <a href="">Сравнить</a>
+                </td>
+                <td>
+                    <a href="pictures/animate-transform.png" target="_blank" style="position: absolute;margin: -30px 0 0 70px;">
+                        <img src="pictures/animate-transform.png" alt="" width="300">
+                    </a>
+                </td>
+            </tr>
+        </table>
+    </div>
+</section>
+
+
+<section class="slide">
+    <div>
+        <h2>CSS анимации</h2>
+        <ul>
+            <li>Декларативны</li>
+            <li class="plus">Просты</li>
+            <li class="plus">Свободны* от основного потока: js, paint, layout, etc</li>
+            <li class="plus next">Синхронизируются с частотой обновления экрана</li>
+            <li class="minus next">Неконтролируемые: только пауза и запуск</li>
+            <li class="minus next">Рассинхрон (нельзя обнулить все анимации)</li>
+        </ul>
+    </div>
+</section>
+
+<section class="slide">
+    <style>
+        .b-note
+        {
+            color: grey;
+            font-size: 70%;
+        }
+    </style>
+    <div>
+        <h2>Подходы к созданию web анимаций</h2>
+        <ol>
+            <li>CSS <span class="b-note">(keyframes, transitions)</span></li>
+            <li class="next">JS <span class="b-note">(jQuery, Velocity, GreenSock, Canvas, WebGL)</span></li>
+        </ol>
+    </div>
+</section>
+
+<section class="slide">
+    <div>
+        <h2>JS анимации</h2>
+        <ul>
+            <li class="plus next">Полный контроль</li>
+        </ul>
+    </div>
+</section>
+
+<section class="slide">
+    <div>
+        <h2>JS анимации: GSAP</h2>
+        <ul>
+            <li>pause()</li>
+            <li>play()</li>
+            <li>seek()</li>
+            <li>reverse()</li>
+            <li>ratio()</li>
+            <li>callback paradise (start, update, finish etc)</li>
+            <li>tween, timeline</li>
+            <li>plugins: css, svg, canvas</li>
+        </ul>
+    </div>
+</section>
+
+<section class="slide">
+    <script src="js/gsap.js"></script>
+    <style>
+        #demo
+        {
+            width: 692px;
+            height: 180px;
+            padding: 8px;
+            margin-bottom: 10px;
+        }
+
+        #logo
+        {
+            position: relative;
+            width: 170px;
+            height: 170px;
+            background: url(examples/composite-thread/i/yabro.png) no-repeat;
+        }
+
+        input[type="button"]
+        {
+            -webkit-appearance: button;
+            padding: 8px;
+            margin-right: 5px;
+            margin-bottom: 5px;
+        }
+
+    </style>
+    <div>
+        <h2>JS анимации: GSAP</h2>
+        <pre style="font-size:70%">
+            <code>var tween = TweenLite.to(logo, 4, {</code>
+            <code> left:"500px", rotation:"360deg", ease:Linear.easeNone, paused: true});</code>
+        </pre>
+        <div id="demo">
+            <div id="logo"></div>
+        </div>
+        <input type="button" id="playBtn" value="play()">
+        <input type="button" id="pauseBtn" value="pause()">
+        <input type="button" id="resumeBtn" value="resume()">
+        <input type="button" id="reverseBtn" value="reverse()">
+        <input type="button" id="playFromBtn" value="play(5)">
+        <input type="button" id="reverseFromBtn" value="reverse(1)"><br/>
+        <input type="button" id="seekBtn" value="seek(3)">
+        <input type="button" id="timeScaleSlowBtn" value="timeScale(0.5)">
+        <input type="button" id="timeScaleNormalBtn" value="timeScale(1)">
+        <input type="button" id="timeScaleFastBtn" value="timeScale(2)">
+
+        <input type="button" id="restartBtn" value="restart()">
+    </div>
+</section>
+
+<section class="slide">
+    <div>
+        <h2>JS анимации</h2>
+        <ul>
+            <li class="plus">Полный контроль</li>
+            <li class="plus next">Синхронизируются с частотой обновления экрана</li>
+        </ul>
+    </div>
+</section>
+
+<section class="slide">
+    <div>
+        <h2>JS анимации: rAF</h2>
+        <p>requestAnimationFrame - зачинатель всех плавных JS анимаций</p>
+        <div id="a" style="overflow:hidden">
+            <div class="label">
+                <label for="display-refresh">Частота обновления экрана:</label>
+                <input id="display-refresh" type="range" min="50" max="70" value="60" step="1">
+                (<span id="cur-display-refresh">xxx</span> Hz)
+            </div>
+            <canvas id="canvas0" width="5000" height="40"></canvas>
+        </div>
+
+        <div id="b" style="display:block;overflow:scroll">
+            <div class="label">
+                <label for="interval">setTimeout interval:</label>
+                <input id="interval" type="range" min="6" max="20" value="16" step="1">
+                (<span id="cur-interval">xxx</span> ms)
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+
+            </div>
+            <canvas id="canvas1" width="5000" height="60"></canvas>
+        </div>
+        <script src="js/raf.js"></script>
+    </div>
+</section>
+
+<section class="slide">
+    <div>
+        <h2>JS анимации: rAF</h2>
+        <ul>
+            <li>синхронизация</li>
+            <li>экономия ресурсов</li>
+        </ul>
+    </div>
+</section>
+
+<section class="slide">
+    <div>
+        <h2>Подходы к созданию web анимаций</h2>
+        <ol>
+            <li>CSS <span class="b-note">(keyframes, transitions)</span></li>
+            <li>JS <span class="b-note">(jQuery, Velocity, GreenSock, Canvas, WebGL)</span></li>
+            <li class="next" style="color: grey;">SVG SMIL</li>
+        </ol>
+    </div>
+</section>
+
+<section class="slide">
+    <div>
+        <h2>SVG анимации</h2>
+        <ul>
+            <li>Применимы только к SVG</li>
+            <li>Плохая перспектива</li>
+            <p><a href="//groups.google.com/a/chromium.org/forum/#!topic/blink-dev/5o0yiO440LM">Intent to deprecate: SMIL</a></p>
+        </ul>
+    </div>
+</section>
+
+<section class="slide" id="compare">
+    <div>
+        <style>
+            #compare td
+            {
+                font-size: 200%;
+            }
+
+            #compare .plus
+            {
+                color: green;
+            }
+
+            #compare .minus
+            {
+                color: red;
+            }
+        </style>
+        <h2>JS vs CSS</h2>
+        <table>
+            <tr>
+                <th scope="col"></th>
+                <th align="center">Отдельный поток</th>
+                <th align="center">Контроль</th>
+                <th align="center">Синхронизация</th>
+            </tr>
+            <tr>
+                <th scope="row">CSS</th>
+                <td align="center" class="plus">+*</td>
+                <td align="center" class="minus">-</td>
+                <td align="center" class="plus">+</td>
+            </tr>
+            <tr>
+                <th scope="row">JS</th>
+                <td align="center" class="minus">-</td>
+                <td align="center" class="plus">++</td>
+                <td align="center" class="plus">+*</td>
+            </tr>
+        </table>
+    </div>
+</section>
+
+<section class="slide">
+    <div>
+        <h2>JS vs CSS</h2>
+        <ul>
+            <li><a href="//davidwalsh.name/css-js-animation">CSS vs. JS Animation: Which is Faster?</a></li>
+            <li><a href="//greensock.com/transitions/">CSS Animations vs GSAP: Cage Match</a></li>
+            <li><a href="//greensock.com/css-performance">CSS animations performance: the untold story</a></li>
+            <li><a href="//css-tricks.com/myth-busting-css-animations-vs-javascript/">Myth Busting: CSS Animations vs. JavaScript</a></li>
+
+            <p>Native FPS для CSS анимаций, Chrome overhead</p>
+        </ul>
+    </div>
+</section>
+
+<section class="slide">
+    <div>
+        <h2>Производительность</h2>
+        <ul>
+            <li>Timiline показывает не все,</li>
+        </ul>
+    </div>
+</section>
+
+<section class="slide">
+    <div>
+        <h2>Инструменты для профилирования</h2>
+        <ul>
+            <li>chrome dev tools</li>
+            <li>frame layer</li>
+            <li>paint debugger</li>
+            <li>animation control</li>
+        </ul>
+    </div>
+</section>
+
+<section class="slide">
+    <div>
+        <h2>Инструменты для профилирования. Скоро</h2>
+        <object width="800" height="400">
+            <param name="movie" value="video/devtools-animations.swf">
+            <embed src="video/devtools-animations.swf" width="800" height="400">
+            </embed>
+        </object>
+    </div>
+</section>
+
+<section class="slide cover" id="Cover2">
+    <div>
+        <h2>Взять лучшее из обоих подходов?</h2>
+        <img src="pictures/3.jpg" alt="" width="1144">
+        <style>
+            #Cover2 h2
+            {
+                margin: -100px 0px 0px;
+                color: #FFF;
+                text-align: center;
+                font-size: 90px;
+                text-shadow: 0 0 74px #000;
+            }
+        </style>
+    </div>
+</section>
+
+<section class="slide">
+    <div>
+        <h2>Web Animations</h2>
+        <ul>
+            <li>собственный поток (like CSS);</li>
+            <li>полный контроль (like JS);</li>
+            <li><a href="//w3c.github.io/web-animations/">Спецификация</a></li>
+        </ul>
+        <img src="pictures/fuck-yeah.jpg" alt="" style="width:400px;margin:-260px 0 0 480px;">
+    </div>
+</section>
+
+<section class="slide">
+    <div>
+        <h2>Web Animations. Синтаксис</h2>
+        <pre style="font-size:80%;">
+            <code>var player = element.animate([</code>
+            <code> {cssProperty: value0},</code>
+            <code> {cssProperty: value1},</code>
+            <code> {cssProperty: value2},</code>
+            <code>//...</code>
+            <code>], {</code>
+            <code> duration: timeInMs,</code>
+            <code> iterations: iterationCount,</code>
+            <code> delay: delayValue</code>
+            <code>});</code>
+        </pre>
+    </div>
+</section>
+
+<section class="slide">
+    <div>
+        <h2>Web Animations. Синтаксис</h2>
+        <pre style="font-size:80%;">
+            <code>var animation = new Animation(target,</code>
+            <code> [{transform: 'translateX(0)'}, {transform: 'translateX(240px)'}], 1000);</code>
+            <code>var player = document.timeline.play(myAnimation);</code>
+            <code>...</code>
+            <code>player.play();</code>
+            <code>player.pause();</code>
+            <code>player.finish();</code>
+            <code>player.reverse();</code>
+            <code>player.seek();</code>
+        </pre>
+    </div>
+</section>
+
+<section class="slide">
+    <div>
+        <h2>Web Animations. Анимация по path</h2>
+        <pre style="font-size:80%;">
+            <code>&lt;path id=path d="M 100,100 a 75,75 0 1,0 150,0 a 75,75 0 1,0 -150,0"&gt;</code>
+            <code>&nbsp;</code>
+            <code>var animFunc = new MotionPathEffect(document.querySelector('#path')</code>
+            <code> .pathSegList);</code>
+            <code>&nbsp;</code>
+            <code>var animation = new Animation(targetElement, animFunc, 2000);</code>
+        </pre>
+    </div>
+</section>
+
+<section class="slide">
+    <div>
+        <h2>Web Animations. Очереди</h2>
+
+    </div>
+</section>
+
+<section class="slide">
+    <div>
+        <h2>Стандарт Web Animations</h2>
+        <ul>
+            <li>Активная работа над стандартом</li>
+            <li>Поддержка: Chrome (animate), FF (включение через флаги)</li>
+            <li>Полифил: <a href="https://github.com/web-animations/web-animations-js">https://github.com/web-animations/web-animations-js</a>
+            </li>
+        </ul>
+    </div>
+</section>
+
+<section class="slide">
+    <div>
+        <h2>Web Animations vs GSAP</h2>
+        <pre style="font-size:68%;">
+            <code>// Web Animations</code>
+            <code>var animation = new Animation(element, {"transform": "translate(100px, 200px)"}, 1500);</code>
+            <code>// GSAP</code>
+            <code>var animation = TweenMax(element, 1.5, { x: 100, y: 200 });</code>
+        </pre>
+        <ul>
+            <li>GSAP - абстракция</li>
+            <li>Поддержка старых браузеров, независимый transform, плагины и др.</li>
+        </ul>
+        <p><a href="//greensock.com/forums/topic/11247-web-animations-api-and-gsap/">Web Animations API and GSAP</a></p>
+    </div>
+</section>
+
+<section class="slide">
+    <div>
+        <h2>Итого</h2>
+        <p>Возможный порядок использования техник:</p>
+        <ol>
+            <li>CSS transitions</li>
+            <li>CSS keyframes</li>
+            <li>Web animation API + web-animations-js</li>
+            <li>JS GSAP</li>
+        </ol>
+    </div>
+</section>
+
+<div class="progress">
+    <div></div>
+</div>
+<script src="node_modules/shower-core/shower.min.js"></script>
+</body>
+</html>
