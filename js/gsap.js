@@ -16,7 +16,7 @@ window.onload = function() {
         timeScaleNormalBtn = document.getElementById("timeScaleNormalBtn"),
         timeScaleFastBtn = document.getElementById("timeScaleFastBtn"),
         restartBtn = document.getElementById("restartBtn"),
-        tween = TweenLite.to(logo, 4, {left:"500px", rotation:"360deg", ease:Linear.easeNone, paused: true});
+        tween = TweenLite.to(logo, 3, {left:"600px", rotation:"360deg", ease:Linear.easeNone, paused: true});
 
     playBtn.onclick = function() {
         //Play the tween forward from the current position.
@@ -35,7 +35,7 @@ window.onload = function() {
     }
     playFromBtn.onclick = function() {
         //Play from a sepcified time (in seconds).
-        tween.play(5);
+        tween.play(2);
     }
     reverseFromBtn.onclick = function() {
         //Reverse from a specified time (in seconds).
@@ -44,7 +44,7 @@ window.onload = function() {
     seekBtn.onclick = function() {
         //Jump to specificied time (in seconds) without affecting
         //whether or not the tween is paused or reversed.
-        tween.seek(3);
+        tween.seek(2);
     }
     timeScaleSlowBtn.onclick = function() {
         //timescale of 0.5 will make the tween play at half-speed (slower).
